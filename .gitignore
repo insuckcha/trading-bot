@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Dependency files
+pip-log.txt
+
+# Environment variables
+.env
+
+# Streamlit
+.streamlit/
+*.streamlit*
+
+# Jupyter and IPython
+.ipynb_checkpoints/
+*.ipynb
+
+# Logs and outputs
+*.log
+logs/
+bot.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
