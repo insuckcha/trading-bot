@@ -5,12 +5,10 @@ from dotenv import load_dotenv
 load_dotenv()
 key = os.getenv("POLYGON_API_KEY")
 
+
 def check_polygon_api():
     url = f"https://api.polygon.io/v2/aggs/ticker/AAPL/prev"
-    params = {
-        "adjusted": "true",
-        "apiKey": key
-    }
+    params = {"adjusted": "true", "apiKey": key}
 
     res = requests.get(url, params=params)
     if res.status_code == 200:
@@ -23,6 +21,7 @@ def check_polygon_api():
             print("❗️No results returned.")
     else:
         print(f"❌ Error {res.status_code}: {res.text}")
+
 
 if __name__ == "__main__":
     check_polygon_api()

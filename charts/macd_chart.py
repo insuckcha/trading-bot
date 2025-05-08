@@ -1,0 +1,45 @@
+import streamlit as st
+import plotly.graph_objs as go
+from strategies.macd_signal import find_macd_signals
+
+def render_macd_chart(df):
+    st.subheader("📉 MACD Indicator")
+    buy_signals, sell_signals, df = find_macd_signals(df)
+
+    fig = go.Figure()
+
+    # MACD and Signal Line
+    fig.add_trace(go.Scatter(x=df["Time"], y=df["MACD"], name="MACD", line=dict(color="blue")))
+    fig.add_trace(go.Scatter(x=df["Time"], y=df["MACD_Signal"], name="Signal Line", line=dict(color="orange")))
+
+    # Histogram
+    fig.add_trace(go.Bar(x=df["Time"], y=df["MACD_Hist"], name="Histogram", marker_color="gray"))
+
+    # Buy signals
+    if buy_signals:
+        fig.add_trace(go.Scatter(
+            x=[x for x, _ in buy_signals],
+            y=[y for _, y in buy_signals],
+            mode="markers",
+            marker=dict(color="green", size=8, symbol="triangle-up"),
+            name="Buy Signal"
+        ))
+
+    # Sell signals
+    if sell_signals:
+        fig.add_trace(go.Scatter(
+            x=[x for x, _ in sell_signals],
+            y=[y for _, y in sell_signals],
+            mode="markers",
+            marker=dict(color="red", size=8, symbol="triangle-down"),
+            name="Sell Signal"
+        ))
+
+    fig.update_layout(
+        yaxis_title="MACD",
+        xaxis_rangeslider_visible=False,
+        height=400
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+

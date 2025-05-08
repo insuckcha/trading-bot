@@ -1,0 +1,2 @@
+EMA_SPANS = [10, 20, 50]
+SMA_SPANS = [10, 30]
